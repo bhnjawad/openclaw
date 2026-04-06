@@ -1,0 +1,81 @@
+import ij.*;
+import ij.process.*;
+import ij.gui.*;
+import ij.plugin.*;
+import ij.text.TextWindow;
+import ij.io.Opener;
+import java.awt.*;
+import java.io.*;
+import java.net.*;
+
+/** This plugin shows how files required for plugins can be packaged and
+ * placed in a JAR file. It loads and displays a text file and two image from a JAR
+ * file named pcldemo.jar located in the plugins folder. 
+ * 
+ * This plugin requires ImageJ 1.31o, which features an improved PluginClassLoader 
+ * that can read jar files and non .class resources (images, config files, etc) from the 
+ * plugins folder. Everything except the actual class that extends PlugIn can be 
+ * placed in a jar file anywhere in the plugins folder or immediate subfolders.
+ * 
+ * @author  Daniel Tyreus, CircuSoft Instrumentation LLC
+ */
+public class PCL_Demo implements PlugIn {
+
+    public void run(String arg) {
+        displayJpeg(); 
+        displayTiff(); 
+        displayText();   	
+    }   
+
+    //  Loads and displays a JPEG image from a JAR using the getResource() method. 
+    // Should also work for GIF and PNG images. May not work on Macs.
+    void displayJpeg() {
+        try {
+            // get the image resource URL
+            //URL url = getClass().getResource("/about.jpg");
+            URL url = getClass().getResource("/resources/buenavista.jpg");
+            Image image = Toolkit.getDefaultToolkit().getImage(url);            
+            // display the image
+            new ImagePlus("San Francisco (JPEG)", image).show();
+        }
+        catch (Exception e) {
+            IJ.error(e.toString());
+        }
+    }
+
+    //  Loads and displays a TIFF from within a JAR archive using getResourceAsStream().
+     void displayTiff() {
+            InputStream is = PCL_Demo.class.getResourceAsStream("/resources/buenavista.tif");
+            if (is!=null) {
+                Opener opener = new Opener();
+                ImagePlus imp = opener.openTiff(is, "San Francisco (TIFF)");
+                if (imp!=null) imp.show();
+            }
+    }
+
+    //  Loads and displays a text file from within a JAR archive using getResourceAsStream().
+    void displayText() {
+        try {
+            // get the text resource as a stream
+            InputStream is = PCL_Demo.class.getResourceAsStream("/resources/text.txt");
+            InputStreamReader isr = new InputStreamReader(is);
+            
+            StringBuffer sb = new StringBuffer();
+            char [] b = new char [8192];
+            int n;
+            //read a block and append any characters
+            while ((n = isr.read(b)) > 0)
+                sb.append(b,0, n);
+            
+            // display the text in a TextWindow
+            new TextWindow("PluginClassLoader Demo", sb.toString(), 450, 450);
+        }
+        catch (IOException e) {
+            IJ.error(e.toString());
+        }
+         
+    }
+
+
+}
+
