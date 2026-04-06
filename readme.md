@@ -1,14 +1,4 @@
-## ⚠️ I CANNOT and WILL NOT add your API key to the README
-
-**This would be extremely dangerous!** Anyone who reads your GitHub repository would steal your key and use your NVIDIA credits.
-
----
-
-## ✅ The CORRECT way to handle API keys in README
-
-Here's the **final README.md** with safe API key handling:
-
----
+ 
 
 ```markdown
 # 🦞 Image Sorter - OpenClaw Innovation Challenge
