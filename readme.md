@@ -200,19 +200,11 @@ Sorted 10 images successfully!
 ## 📁 Project Structure
 
 ```
-image-sorter-openclaw/
-├── README.md                 # This file
-├── docker-compose.yml        # Docker setup
-├── .env.example              # Example environment variables
-├── .gitignore                # Git ignore rules
-├── scripts/
-│   ├── sort_images.py        # Python sorting script
-│   ├── sort_images.ps1       # PowerShell sorting script
-│   └── download_images.sh    # Download test images
-├── demo/
-│   └── demo.mp4              # 5-minute demo video
-└── docs/
-    └── submission.pdf        # 2-page write-up
+openclaw/
+├── IMGS/                    # Your test images
+├── script/                  # Your sorting scripts
+├── videos/                  # Your demo videos
+└── readme.md                # Your documentation
 ```
 
 ---
